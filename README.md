@@ -2,8 +2,11 @@
 
 Damar agency website.
 
-## Technologies used 
+## Technologies used
 
 Brew
 SSH
 Git
+HTML
+Font awesome
+Google Fonts
