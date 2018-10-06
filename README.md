@@ -1,3 +1,9 @@
 # Damar Agency Website
 
-Damar agency client website.
+Damar agency website.
+
+## Technologies used 
+
+Brew
+SSH
+Git
