@@ -9,8 +9,8 @@ def lambda_handler(event, context):
     sns = boto3.resource('sns')
     topic = sns.Topic('arn:aws:sns:us-east-1:255162520246:deployWebTopic')
 
-    location : {
-        "bucketName:": 'webbuild.damar.agency',
+    location = {
+        "bucketName": 'webbuild.damar.agency',
         "objectKey": 'webbuild.zip'
     }
     try:
