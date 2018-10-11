@@ -3,17 +3,20 @@ import StringIO
 import zipfile
 import mimetypes
 
-s3 = boto3.resource('s3')
+def lambda_handler(event, context):
 
-damaragency_bucket = s3.Bucket('damar.agency')
-build_bucket = s3.Bucket('webbuild.damar.agency')
+    s3 = boto3.resource('s3')
 
-webbuild_zip = StringIO.StringIO()
-build_bucket.download_fileobj('webbuild.zip', webbuild_zip)
+    damaragency_bucket = s3.Bucket('damar.agency')
+    build_bucket = s3.Bucket('webbuild.damar.agency')
 
-with zipfile.ZipFile(webbuild_zip) as myzip:
-    for nm in myzip.namelist():
-        obj = myzip.open(nm)
-        damaragency_bucket.upload_fileobj(obj,nm,
-        ExtraArgs={'ContentType': mimetypes.guess_type(nm)[0]})
-        damaragency_bucket.Object(nm).Acl().put(ACL='public-read')
+    webbuild_zip = StringIO.StringIO()
+    build_bucket.download_fileobj('webbuild.zip', webbuild_zip)
+
+    with zipfile.ZipFile(webbuild_zip) as myzip:
+        for nm in myzip.namelist():
+            obj = myzip.open(nm)
+            damaragency_bucket.upload_fileobj(obj,nm,
+            ExtraArgs={'ContentType': mimetypes.guess_type(nm)[0]})
+            damaragency_bucket.Object(nm).Acl().put(ACL='public-read')
+    return 'Hello from Lambda'
